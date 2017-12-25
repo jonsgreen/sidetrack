@@ -1,0 +1,13 @@
+class CreateTrackings < ActiveRecord::Migration<%= migration_version %>
+  def change
+    create_table :trackings do |t|
+      t.references :trackable, polymorphic: true, index: true
+      t.string :event
+      t.datetime :happened_at
+      <%- if track_actors %>
+      t.references :actorable, polymorphic: true, index: true
+      <%- end %>
+      t.timestamps
+    end
+  end
+end
